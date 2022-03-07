@@ -6,13 +6,26 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 export default {
-  async created(){
-    const response = await axios.get('http://localhost:3000/products');
-    console.log('axios 호출');
-    console.log(response);
-  }
+  // async created(){
+  //   console.log('test')
+  //   try{
+  //     const response = await axios.get('http://localhost:3000/products');
+  //     console.log('axios 호출');
+  //     console.log(response);
+  //   }catch(error){
+  //     console.log(error);
+  //   }
+  // }
+    // async created() {
+    //   const response = await this.$axios.get("http://localhost:3000/products");
+    //   console.log(response);
+    // },
+    async asyncData({$axios}){
+      const response = await $axios.get('http://localhost:3000/products');
+      console.log(response);
+    }
 }
 </script>
 
