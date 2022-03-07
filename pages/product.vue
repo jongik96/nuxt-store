@@ -11,9 +11,7 @@
 
 <script>
 export default {
-    created(){
-        console.log('test product')
-    }
+    
 }
 </script>
 
