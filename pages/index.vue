@@ -1,9 +1,14 @@
 <template>
   <div class="app">
     <main>
-      <div>
-        <input type="text"/>
-      </div>
+       <!-- :search-keyword="searchKeyword"
+       @input="updateSearchKeyword" -->
+      
+      <SearchInput
+
+        v-model="searchKeyword"
+       @search="searchProducts"
+       ></SearchInput>
       <ul>
         <li
          v-for="product in products" :key="product.id"
@@ -22,6 +27,8 @@
 
 <script>
 import axios from 'axios';
+import { fetchProductByKeyword } from '~/api';
+
 export default {
   async asyncData(){
       const res = await axios.get('http://localhost:3000/products');
@@ -37,10 +44,31 @@ export default {
       // })
       return {products};
   },
+
+  data(){
+    return{
+      searchKeyword: '',
+    }
+  },
   methods:{
     moveToDetailPage(id){
       console.log(id);
       this.$router.push(`detail/${id}`);
+    },
+
+    // 하위 컴포넌트에서 받아온 값
+    // updateSearchKeyword(keyword){
+    //   this.searchKeyword = keyword;
+    // },
+
+
+    async searchProducts(){
+      const response = await fetchProductByKeyword(this.searchKeyword);
+      // console.log(response.data);
+      this.products = response.data.map(item =>({
+        ...item,
+        imageUrl: `${item.imageUrl}?random=${Math.random()}`
+      }));
     }
   },
   // data(){
