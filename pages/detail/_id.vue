@@ -12,7 +12,7 @@
       <div class="side-panel">
         <p class="name">{{ product.name }}</p>
         <p class="price">{{ product.price }}</p>
-        <!-- <button type="button" @click="addToCart">Add to Cart</button> -->
+        <button type="button" @click="addToCart">장바구니 담기</button>
       </div>
     </div>
   </div>
@@ -20,7 +20,7 @@
 
 <script>
 // import axios from 'axios';
-import {fetchProductById} from '@/api/index.js';
+import {createCartItem, fetchProductById} from '@/api/index.js';
 
 export default {
     // asyncData 에서는 this 로 접근이 불가능
@@ -31,6 +31,14 @@ export default {
         const product = response.data;
         return {product}
 
+    },
+    methods:{
+      async addToCart(){
+        const response = await createCartItem(this.product)
+        console.log(response.data)
+        this.$store.commit('addCartItem',this.product);
+        this.$router.push('/cart');
+      }
     }
 }
 </script>
