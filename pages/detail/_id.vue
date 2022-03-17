@@ -32,15 +32,17 @@ export default {
         return {product}
 
     },
-    head:{
-      title: 'Shopping Item Detail',
+    head(){
+      return{
+        title: `Shopping Item Detail - ${this.product.name}`,
       meta: [
         {
           hid : 'description',
           name : 'description',
-          content: '이 상품은 xx입니다',
+          content: `이 상품은 ${this.product.name}입니다`,
         },
       ],
+      }
     },
     methods:{
       async addToCart(){
